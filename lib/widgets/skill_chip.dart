@@ -5,19 +5,23 @@ class SkillChip extends StatefulWidget {
   final String title;
   final IconData icon;
   final Color color;
+  final bool isMobile;
 
   const SkillChip({
     super.key,
     required this.title,
     required this.icon,
     required this.color,
+    required this.isMobile,
   });
 
   @override
-  State<SkillChip> createState() => _SkillChipState();
+  State<SkillChip> createState() =>
+      _SkillChipState();
 }
 
-class _SkillChipState extends State<SkillChip> {
+class _SkillChipState
+    extends State<SkillChip> {
 
   bool isHovering = false;
 
@@ -27,12 +31,14 @@ class _SkillChipState extends State<SkillChip> {
     return MouseRegion(
 
       onEnter: (_) {
+
         setState(() {
           isHovering = true;
         });
       },
 
       onExit: (_) {
+
         setState(() {
           isHovering = false;
         });
@@ -40,16 +46,22 @@ class _SkillChipState extends State<SkillChip> {
 
       child: AnimatedContainer(
 
-        duration: const Duration(milliseconds: 250),
+        duration:
+        const Duration(milliseconds: 250),
 
-        padding: const EdgeInsets.symmetric(
-          horizontal: 25,
-          vertical: 18,
+        padding: EdgeInsets.symmetric(
+
+          horizontal:
+          widget.isMobile ? 18 : 25,
+
+          vertical:
+          widget.isMobile ? 14 : 18,
         ),
 
         decoration: BoxDecoration(
 
-          borderRadius: BorderRadius.circular(20),
+          borderRadius:
+          BorderRadius.circular(20),
 
           gradient: LinearGradient(
             colors: [
@@ -63,7 +75,8 @@ class _SkillChipState extends State<SkillChip> {
           ),
 
           border: Border.all(
-            color: widget.color.withOpacity(0.4),
+            color:
+            widget.color.withOpacity(0.4),
           ),
 
           boxShadow: [
@@ -71,7 +84,9 @@ class _SkillChipState extends State<SkillChip> {
             if (isHovering)
 
               BoxShadow(
-                color: widget.color.withOpacity(0.4),
+                color:
+                widget.color.withOpacity(0.4),
+
                 blurRadius: 25,
                 spreadRadius: 2,
               ),
@@ -79,7 +94,9 @@ class _SkillChipState extends State<SkillChip> {
         ),
 
         transform: Matrix4.identity()
-          ..scale(isHovering ? 1.05 : 1.0),
+          ..scale(
+            isHovering ? 1.05 : 1.0,
+          ),
 
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -87,17 +104,28 @@ class _SkillChipState extends State<SkillChip> {
 
             Icon(
               widget.icon,
+
               color: widget.color,
-              size: 28,
+
+              size:
+              widget.isMobile ? 22 : 28,
             ),
 
-            const SizedBox(width: 15),
+            SizedBox(
+              width:
+              widget.isMobile ? 10 : 15,
+            ),
 
             Text(
               widget.title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
+
+              style: TextStyle(
+
+                fontSize:
+                widget.isMobile ? 15 : 18,
+
+                fontWeight:
+                FontWeight.w600,
               ),
             ),
           ],

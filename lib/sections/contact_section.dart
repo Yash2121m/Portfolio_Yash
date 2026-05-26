@@ -7,160 +7,227 @@ import '../widgets/social_button.dart';
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
 
-
   @override
   Widget build(BuildContext context) {
 
-    return Padding(
+    return LayoutBuilder(
+      builder: (context, constraints) {
 
-      padding: EdgeInsets.symmetric(
-        horizontal: Get.width * .05,
-        vertical: Get.height * .08,
-      ),
+        final bool isMobile =
+            constraints.maxWidth < 800;
 
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        return Padding(
 
-          // TITLE
+          padding: EdgeInsets.symmetric(
 
-          ShaderMask(
+            horizontal:
+            isMobile
+                ? 25
+                : Get.width * .05,
 
-            shaderCallback: (bounds) {
-
-              return const LinearGradient(
-                colors: [
-                  Colors.blue,
-                  Colors.purple,
-                ],
-              ).createShader(bounds);
-            },
-
-            child: const Text(
-              'Contact Me',
-              style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
+            vertical:
+            isMobile
+                ? 50
+                : Get.height * .08,
           ),
 
-          const SizedBox(height: 15),
-
-          Text(
-            'Let’s connect and build something amazing together.',
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.grey.shade400,
-            ),
-          ),
-
-          const SizedBox(height: 50),
-
-          // CONTACT CARDS
-
-          Wrap(
-            spacing: 25,
-            runSpacing: 25,
+          child: Column(
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
 
             children: [
 
-              // LINKEDIN
+              // TITLE
 
-              SocialButton(
+              ShaderMask(
 
-                icon: const FaIcon(
-                  FontAwesomeIcons.linkedinIn,
-                  color: Colors.white,
-                  size: 30,
+                shaderCallback: (bounds) {
+
+                  return const LinearGradient(
+                    colors: [
+                      Colors.blue,
+                      Colors.purple,
+                    ],
+                  ).createShader(bounds);
+                },
+
+                child: Text(
+                  'Contact Me',
+
+                  style: TextStyle(
+
+                    fontSize:
+                    isMobile ? 40 : 50,
+
+                    fontWeight:
+                    FontWeight.bold,
+
+                    color: Colors.white,
+                  ),
                 ),
-
-                title: 'LinkedIn',
-
-                subtitle:
-                'Connect professionally and view my experience & achievements.',
-
-                url:
-                'https://www.linkedin.com/in/yash-patil-2121yp/',
-
-                color: Colors.blue,
               ),
 
-              // GITHUB
+              const SizedBox(height: 15),
 
-              SocialButton(
+              // SUBTITLE
 
-                icon: const FaIcon(
-                  FontAwesomeIcons.github,
-                  color: Colors.white,
-                  size: 30,
+              Text(
+
+                'Let’s connect and build something amazing together.',
+
+                style: TextStyle(
+
+                  fontSize:
+                  isMobile ? 15 : 18,
+
+                  color:
+                  Colors.grey.shade400,
+
+                  height: 1.7,
                 ),
-
-                title: 'GitHub',
-
-                subtitle:
-                'Explore my Flutter projects, repositories and source code.',
-
-                url:
-                'https://github.com/Yash2121m',
-
-                color: Colors.white,
               ),
 
-              // EMAIL
+              const SizedBox(height: 40),
 
-              SocialButton(
+              // CONTACT CARDS
 
-                icon: const Icon(
-                  Icons.email,
-                  color: Colors.white,
-                  size: 30,
+              Wrap(
+
+                spacing:
+                isMobile ? 18 : 25,
+
+                runSpacing:
+                isMobile ? 18 : 25,
+
+                children: [
+
+                  // LINKEDIN
+
+                  SocialButton(
+
+                    isMobile:
+                    isMobile,
+
+                    icon: const FaIcon(
+                      FontAwesomeIcons.linkedinIn,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+
+                    title: 'LinkedIn',
+
+                    subtitle:
+                    'Connect professionally and view my experience & achievements.',
+
+                    url:
+                    'https://www.linkedin.com/in/yash-patil-2121yp/',
+
+                    color: Colors.blue,
+                  ),
+
+                  // GITHUB
+
+                  SocialButton(
+
+                    isMobile:
+                    isMobile,
+
+                    icon: const FaIcon(
+                      FontAwesomeIcons.github,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+
+                    title: 'GitHub',
+
+                    subtitle:
+                    'Explore my Flutter projects, repositories and source code.',
+
+                    url:
+                    'https://github.com/Yash2121m',
+
+                    color: Colors.white,
+                  ),
+
+                  // EMAIL
+
+                  SocialButton(
+
+                    isMobile:
+                    isMobile,
+
+                    icon: const Icon(
+                      Icons.email,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+
+                    title: 'Email',
+
+                    subtitle:
+                    'Reach out for collaborations, opportunities and projects.',
+
+                    url:
+                    'mailto:yashspatil2005@gmail.com',
+
+                    color: Colors.orange,
+                  ),
+                ],
+              ),
+
+              SizedBox(
+                height:
+                isMobile ? 40 : 60,
+              ),
+
+              // FOOTER
+
+              Center(
+                child: Column(
+                  children: [
+
+                    Text(
+
+                      '© 2026 Yash Patil • Flutter Developer',
+
+                      textAlign:
+                      TextAlign.center,
+
+                      style: TextStyle(
+
+                        fontSize:
+                        isMobile ? 13 : 16,
+
+                        color:
+                        Colors.grey.shade500,
+                      ),
+                    ),
+
+                    const SizedBox(height: 12),
+
+                    Text(
+
+                      'Built with Flutter Web 💙',
+
+                      textAlign:
+                      TextAlign.center,
+
+                      style: TextStyle(
+
+                        fontSize:
+                        isMobile ? 12 : 15,
+
+                        color:
+                        Colors.grey.shade600,
+                      ),
+                    ),
+                  ],
                 ),
-
-                title: 'Email',
-
-                subtitle:
-                'Reach out for collaborations, opportunities and projects.',
-
-                url:
-                'mailto:yashspatil2005@gmail.com',
-
-                color: Colors.orange,
               ),
             ],
           ),
-
-          const SizedBox(height: 60),
-
-          // FOOTER
-
-          Center(
-            child: Column(
-              children: [
-
-                Text(
-                  '© 2026 Yash Patil • Flutter Developer',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey.shade500,
-                  ),
-                ),
-
-                const SizedBox(height: 12),
-
-                Text(
-                  'Built with Flutter Web 💙',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

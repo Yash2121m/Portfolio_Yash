@@ -34,7 +34,6 @@ class SkillsSection extends StatelessWidget {
         "color": Colors.green,
       },
 
-
       {
         "title": "BLoC",
         "icon": Icons.account_tree,
@@ -72,65 +71,120 @@ class SkillsSection extends StatelessWidget {
       },
     ];
 
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: Get.width * .05,
-        vertical: Get.height * .05,
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
 
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        final bool isMobile =
+            constraints.maxWidth < 800;
 
-          ShaderMask(
-            shaderCallback: (bounds) {
-              return const LinearGradient(
-                colors: [
-                  Colors.blue,
-                  Colors.purple,
-                ],
-              ).createShader(bounds);
-            },
+        return Padding(
 
-            child: const Text(
-              'Skills & Technologies',
-              style: TextStyle(
-                fontSize: 48,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+          padding: EdgeInsets.symmetric(
+
+            horizontal:
+            isMobile
+                ? 25
+                : Get.width * .05,
+
+            vertical:
+            isMobile
+                ? 50
+                : Get.height * .08,
+          ),
+
+          child: Column(
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
+
+            children: [
+
+              // TITLE
+
+              ShaderMask(
+
+                shaderCallback: (bounds) {
+
+                  return const LinearGradient(
+                    colors: [
+                      Colors.blue,
+                      Colors.purple,
+                    ],
+                  ).createShader(bounds);
+                },
+
+                child: Text(
+                  'Skills & Technologies',
+
+                  style: TextStyle(
+
+                    fontSize:
+                    isMobile ? 40 : 48,
+
+                    fontWeight:
+                    FontWeight.bold,
+
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-          ),
 
-          const SizedBox(height: 15),
+              const SizedBox(height: 15),
 
-          Text(
-            'Technologies and tools I use to build scalable and modern Flutter applications.',
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.grey.shade400,
-            ),
-          ),
+              // SUBTITLE
 
-          const SizedBox(height: 40),
+              Text(
 
-          Wrap(
-            alignment: WrapAlignment.start,
-            spacing: 20,
-            runSpacing: 20,
+                'Technologies and tools I use to build scalable and modern Flutter applications.',
 
-            children: skills.map(
+                style: TextStyle(
 
-                  (skill) => SkillChip(
+                  fontSize:
+                  isMobile ? 15 : 18,
 
-                title: skill["title"] as String,
-                icon: skill["icon"] as IconData,
-                color: skill["color"] as Color,
+                  color:
+                  Colors.grey.shade400,
+
+                  height: 1.7,
+                ),
               ),
-            ).toList(),
+
+              const SizedBox(height: 35),
+
+              // SKILLS GRID
+
+              Wrap(
+
+                alignment:
+                WrapAlignment.start,
+
+                spacing:
+                isMobile ? 14 : 20,
+
+                runSpacing:
+                isMobile ? 14 : 20,
+
+                children: skills.map(
+
+                      (skill) => SkillChip(
+
+                    title:
+                    skill["title"] as String,
+
+                    icon:
+                    skill["icon"] as IconData,
+
+                    color:
+                    skill["color"] as Color,
+
+                    isMobile:
+                    isMobile,
+                  ),
+                ).toList(),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

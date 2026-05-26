@@ -1,7 +1,3 @@
-// =====================================
-// lib/sections/certificates_section.dart
-// =====================================
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,7 +5,9 @@ import 'package:url_launcher/url_launcher.dart';
 class CertificatesSection extends StatelessWidget {
   const CertificatesSection({super.key});
 
-  Future<void> openCertificate(String path) async {
+  Future<void> openCertificate(
+      String path,
+      ) async {
 
     final Uri url = Uri.parse(path);
 
@@ -22,7 +20,8 @@ class CertificatesSection extends StatelessWidget {
     final certificates = [
 
       {
-        "title": "Android App Development Certificate",
+        "title":
+        "Android App Development Certificate",
 
         "subtitle":
         "Certified in Android App Development by MyCaptain.",
@@ -38,7 +37,8 @@ class CertificatesSection extends StatelessWidget {
       },
 
       {
-        "title": "Flutter & Dart Certificate",
+        "title":
+        "Flutter & Dart Certificate",
 
         "subtitle":
         "Completed Flutter & Dart Development Course.",
@@ -54,7 +54,8 @@ class CertificatesSection extends StatelessWidget {
       },
 
       {
-        "title": "Recommendation Letter",
+        "title":
+        "Recommendation Letter",
 
         "subtitle":
         "Professional recommendation and appreciation letter.",
@@ -70,82 +71,136 @@ class CertificatesSection extends StatelessWidget {
       },
     ];
 
-    return Padding(
+    return LayoutBuilder(
+      builder: (context, constraints) {
 
-      padding: EdgeInsets.symmetric(
-        horizontal: Get.width * .05,
-        vertical: Get.height * .08,
-      ),
+        final bool isMobile =
+            constraints.maxWidth < 800;
 
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        return Padding(
 
-          // TITLE
+          padding: EdgeInsets.symmetric(
 
-          ShaderMask(
+            horizontal:
+            isMobile
+                ? 25
+                : Get.width * .05,
 
-            shaderCallback: (bounds) {
+            vertical:
+            isMobile
+                ? 50
+                : Get.height * .08,
+          ),
 
-              return const LinearGradient(
-                colors: [
-                  Colors.blue,
-                  Colors.purple,
-                ],
-              ).createShader(bounds);
-            },
+          child: Column(
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
 
-            child: const Text(
-              'Certificates',
-              style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            children: [
+
+              // TITLE
+
+              ShaderMask(
+
+                shaderCallback: (bounds) {
+
+                  return const LinearGradient(
+                    colors: [
+                      Colors.blue,
+                      Colors.purple,
+                    ],
+                  ).createShader(bounds);
+                },
+
+                child: Text(
+                  'Certificates',
+
+                  style: TextStyle(
+
+                    fontSize:
+                    isMobile ? 40 : 50,
+
+                    fontWeight:
+                    FontWeight.bold,
+
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-          ),
 
-          const SizedBox(height: 15),
+              const SizedBox(height: 15),
 
-          Text(
-            'Professional certifications and achievements showcasing my learning journey.',
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.grey.shade400,
-            ),
-          ),
+              // SUBTITLE
 
-          const SizedBox(height: 50),
+              Text(
 
-          // CERTIFICATES GRID
+                'Professional certifications and achievements showcasing my learning journey.',
 
-          Wrap(
-            spacing: 25,
-            runSpacing: 25,
+                style: TextStyle(
 
-            children: certificates.map(
+                  fontSize:
+                  isMobile ? 15 : 18,
 
-                  (certificate) => buildCertificateCard(
+                  color:
+                  Colors.grey.shade400,
 
-                title: certificate["title"] as String,
-
-                subtitle: certificate["subtitle"] as String,
-
-                path: certificate["path"] as String,
-
-                icon: certificate["icon"] as IconData,
-
-                color: certificate["color"] as Color,
+                  height: 1.7,
+                ),
               ),
-            ).toList(),
+
+              const SizedBox(height: 40),
+
+              // GRID
+
+              Wrap(
+                spacing:
+                isMobile ? 18 : 25,
+
+                runSpacing:
+                isMobile ? 18 : 25,
+
+                children: certificates.map(
+
+                      (certificate) {
+
+                    return buildCertificateCard(
+
+                      isMobile:
+                      isMobile,
+
+                      title:
+                      certificate["title"]
+                      as String,
+
+                      subtitle:
+                      certificate["subtitle"]
+                      as String,
+
+                      path:
+                      certificate["path"]
+                      as String,
+
+                      icon:
+                      certificate["icon"]
+                      as IconData,
+
+                      color:
+                      certificate["color"]
+                      as Color,
+                    );
+                  },
+                ).toList(),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
   Widget buildCertificateCard({
 
+    required bool isMobile,
     required String title,
     required String subtitle,
     required String path,
@@ -162,12 +217,14 @@ class CertificatesSection extends StatelessWidget {
         return MouseRegion(
 
           onEnter: (_) {
+
             setState(() {
               isHovering = true;
             });
           },
 
           onExit: (_) {
+
             setState(() {
               isHovering = false;
             });
@@ -175,15 +232,22 @@ class CertificatesSection extends StatelessWidget {
 
           child: AnimatedContainer(
 
-            duration: const Duration(milliseconds: 250),
+            duration:
+            const Duration(milliseconds: 250),
 
-            width: 370,
+            width:
+            isMobile
+                ? double.infinity
+                : 370,
 
-            padding: const EdgeInsets.all(28),
+            padding: EdgeInsets.all(
+              isMobile ? 20 : 28,
+            ),
 
             decoration: BoxDecoration(
 
-              borderRadius: BorderRadius.circular(30),
+              borderRadius:
+              BorderRadius.circular(30),
 
               gradient: LinearGradient(
                 colors: [
@@ -195,7 +259,8 @@ class CertificatesSection extends StatelessWidget {
               ),
 
               border: Border.all(
-                color: color.withOpacity(0.35),
+                color:
+                color.withOpacity(0.35),
               ),
 
               boxShadow: [
@@ -203,7 +268,9 @@ class CertificatesSection extends StatelessWidget {
                 if (isHovering)
 
                   BoxShadow(
-                    color: color.withOpacity(0.35),
+                    color:
+                    color.withOpacity(0.35),
+
                     blurRadius: 35,
                     spreadRadius: 4,
                   ),
@@ -211,10 +278,14 @@ class CertificatesSection extends StatelessWidget {
             ),
 
             transform: Matrix4.identity()
-              ..scale(isHovering ? 1.02 : 1.0),
+              ..scale(
+                isHovering ? 1.02 : 1.0,
+              ),
 
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment:
+              CrossAxisAlignment.start,
+
               children: [
 
                 // TOP ROW
@@ -226,11 +297,15 @@ class CertificatesSection extends StatelessWidget {
 
                     Container(
 
-                      padding: const EdgeInsets.all(15),
+                      padding:
+                      const EdgeInsets.all(15),
 
                       decoration: BoxDecoration(
 
-                        borderRadius: BorderRadius.circular(18),
+                        borderRadius:
+                        BorderRadius.circular(
+                          18,
+                        ),
 
                         gradient: LinearGradient(
                           colors: [
@@ -243,17 +318,20 @@ class CertificatesSection extends StatelessWidget {
                       child: Icon(
                         icon,
                         color: Colors.white,
-                        size: 35,
+
+                        size:
+                        isMobile ? 28 : 35,
                       ),
                     ),
 
                     const Spacer(),
 
-                    // PDF BUTTON
+                    // OPEN BUTTON
 
                     InkWell(
 
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius:
+                      BorderRadius.circular(14),
 
                       onTap: () {
                         openCertificate(path);
@@ -261,13 +339,20 @@ class CertificatesSection extends StatelessWidget {
 
                       child: Container(
 
-                        padding: const EdgeInsets.all(12),
+                        padding:
+                        const EdgeInsets.all(12),
 
                         decoration: BoxDecoration(
 
-                          borderRadius: BorderRadius.circular(14),
+                          borderRadius:
+                          BorderRadius.circular(
+                            14,
+                          ),
 
-                          color: Colors.white.withOpacity(0.05),
+                          color:
+                          Colors.white.withOpacity(
+                            0.05,
+                          ),
                         ),
 
                         child: const Icon(
@@ -279,93 +364,126 @@ class CertificatesSection extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 25),
 
                 // TITLE
 
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+
+                  style: TextStyle(
+
+                    fontSize:
+                    isMobile ? 20 : 24,
+
+                    fontWeight:
+                    FontWeight.bold,
                   ),
                 ),
 
-                const SizedBox(height: 18),
+                const SizedBox(height: 15),
 
                 // SUBTITLE
 
                 Text(
                   subtitle,
+
                   style: TextStyle(
-                    fontSize: 16,
+
+                    fontSize:
+                    isMobile ? 14 : 16,
+
                     height: 1.7,
-                    color: Colors.grey.shade400,
+
+                    color:
+                    Colors.grey.shade400,
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 25),
 
                 // BUTTON
 
-                InkWell(
+                Wrap(
+                  children: [
 
-                  borderRadius: BorderRadius.circular(18),
+                    InkWell(
 
-                  onTap: () {
-                    openCertificate(path);
-                  },
+                      borderRadius:
+                      BorderRadius.circular(18),
 
-                  child: Container(
+                      onTap: () {
+                        openCertificate(path);
+                      },
 
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 22,
-                      vertical: 15,
-                    ),
+                      child: Container(
 
-                    decoration: BoxDecoration(
-
-                      borderRadius: BorderRadius.circular(18),
-
-                      gradient: LinearGradient(
-                        colors: [
-                          color,
-                          Colors.purple,
-                        ],
-                      ),
-
-                      boxShadow: [
-
-                        BoxShadow(
-                          color: color.withOpacity(0.35),
-                          blurRadius: 18,
-                          spreadRadius: 2,
-                        ),
-                      ],
-                    ),
-
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-
-                        Icon(
-                          Icons.picture_as_pdf,
-                          color: Colors.white,
+                        padding:
+                        const EdgeInsets.symmetric(
+                          horizontal: 22,
+                          vertical: 15,
                         ),
 
-                        SizedBox(width: 12),
+                        decoration: BoxDecoration(
 
-                        Text(
-                          'View Certificate',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                          borderRadius:
+                          BorderRadius.circular(18),
+
+                          gradient: LinearGradient(
+                            colors: [
+                              color,
+                              Colors.purple,
+                            ],
                           ),
+
+                          boxShadow: [
+
+                            BoxShadow(
+                              color:
+                              color.withOpacity(
+                                0.35,
+                              ),
+
+                              blurRadius: 18,
+                              spreadRadius: 2,
+                            ),
+                          ],
                         ),
-                      ],
+
+                        child: Row(
+                          mainAxisSize:
+                          MainAxisSize.min,
+
+                          children: [
+
+                            const Icon(
+                              Icons.picture_as_pdf,
+                              color: Colors.white,
+                            ),
+
+                            const SizedBox(width: 12),
+
+                            Text(
+                              'View Certificate',
+
+                              style: TextStyle(
+
+                                fontSize:
+                                isMobile
+                                    ? 14
+                                    : 16,
+
+                                fontWeight:
+                                FontWeight.bold,
+
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),

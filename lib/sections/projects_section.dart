@@ -1,7 +1,3 @@
-// =====================================
-// lib/sections/projects_section.dart
-// =====================================
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,60 +9,92 @@ class ProjectsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Padding(
+    return LayoutBuilder(
+      builder: (context, constraints) {
 
-      padding: EdgeInsets.symmetric(
-        horizontal: Get.width * .05,
-        vertical: Get.height * .08,
-      ),
+        final bool isMobile =
+            constraints.maxWidth < 800;
 
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        return Padding(
 
-          // TITLE
+          padding: EdgeInsets.symmetric(
 
-          ShaderMask(
+            horizontal:
+            isMobile
+                ? 25
+                : Get.width * .05,
 
-            shaderCallback: (bounds) {
+            vertical:
+            isMobile
+                ? 50
+                : Get.height * .08,
+          ),
 
-              return const LinearGradient(
-                colors: [
-                  Colors.blue,
-                  Colors.purple,
-                ],
-              ).createShader(bounds);
-            },
+          child: Column(
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
 
-            child: const Text(
-              'Projects',
-              style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            children: [
+
+              // TITLE
+
+              ShaderMask(
+
+                shaderCallback: (bounds) {
+
+                  return const LinearGradient(
+                    colors: [
+                      Colors.blue,
+                      Colors.purple,
+                    ],
+                  ).createShader(bounds);
+                },
+
+                child: Text(
+                  'Projects',
+
+                  style: TextStyle(
+
+                    fontSize:
+                    isMobile ? 40 : 50,
+
+                    fontWeight:
+                    FontWeight.bold,
+
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-          ),
 
-          const SizedBox(height: 15),
+              const SizedBox(height: 15),
 
-          Text(
-            'Some of the featured Flutter applications and projects I’ve developed.',
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.grey.shade400,
-            ),
-          ),
+              // SUBTITLE
 
-          const SizedBox(height: 50),
+              Text(
 
-          // AUTOVERSE
+                'Some of the featured Flutter applications and projects I’ve developed.',
 
-          ProjectCard(
+                style: TextStyle(
 
-            title: 'AutoVerse',
+                  fontSize:
+                  isMobile ? 15 : 18,
 
-            description: '''
+                  color:
+                  Colors.grey.shade400,
+
+                  height: 1.7,
+                ),
+              ),
+
+              const SizedBox(height: 40),
+
+              // AUTOVERSE
+
+              ProjectCard(
+
+                title: 'AutoVerse',
+
+                description: '''
 • Developed a full-featured cross-platform car dealership application using Flutter.
 
 • Enabled users to explore, filter, and compare vehicles with a seamless UI across Android and iOS.
@@ -78,24 +106,28 @@ class ProjectsSection extends StatelessWidget {
 • Improved overall system efficiency with responsive UI and optimized application performance.
 ''',
 
-            github:
-            'https://github.com/Yash2121m/Car_Dealership_Application/tree/AutoVerse',
+                github:
+                'https://github.com/Yash2121m/Car_Dealership_Application/tree/AutoVerse',
 
-            imagePath:
-            'assets/images/autoverse_logo.png',
+                imagePath:
+                'assets/images/autoverse_logo.png',
 
-            glowColor: Colors.blue,
-          ),
+                glowColor: Colors.blue,
+              ),
 
-          const SizedBox(height: 40),
+              SizedBox(
+                height:
+                isMobile ? 25 : 40,
+              ),
 
-          // COFFEE SHOP
+              // COFFEE SHOP
 
-          ProjectCard(
+              ProjectCard(
 
-            title: 'Coffee Shop Application',
+                title:
+                'Coffee Shop Application',
 
-            description: '''
+                description: '''
 • Built a responsive mobile application for coffee ordering and product browsing using Flutter.
 
 • Implemented features like cart management, order tracking, and smooth navigation experience.
@@ -107,16 +139,18 @@ class ProjectsSection extends StatelessWidget {
 • Improved app reliability through debugging and performance optimization techniques.
 ''',
 
-            github:
-            'https://github.com/Yash2121m/Coffee_Shop_Application',
+                github:
+                'https://github.com/Yash2121m/Coffee_Shop_Application',
 
-            imagePath:
-            'assets/images/coffee_logo.png',
+                imagePath:
+                'assets/images/coffee_logo.png',
 
-            glowColor: Colors.orange,
+                glowColor: Colors.orange,
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

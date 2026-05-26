@@ -8,6 +8,7 @@ class SocialButton extends StatefulWidget {
   final String subtitle;
   final String url;
   final Color color;
+  final bool isMobile;
 
   const SocialButton({
     super.key,
@@ -16,18 +17,23 @@ class SocialButton extends StatefulWidget {
     required this.subtitle,
     required this.url,
     required this.color,
+    required this.isMobile,
   });
 
   @override
-  State<SocialButton> createState() => _SocialButtonState();
+  State<SocialButton> createState() =>
+      _SocialButtonState();
 }
 
-class _SocialButtonState extends State<SocialButton> {
+class _SocialButtonState
+    extends State<SocialButton> {
 
   bool isHovering = false;
 
   Future<void> openUrl() async {
-    await launchUrl(Uri.parse(widget.url));
+    await launchUrl(
+      Uri.parse(widget.url),
+    );
   }
 
   @override
@@ -36,12 +42,14 @@ class _SocialButtonState extends State<SocialButton> {
     return MouseRegion(
 
       onEnter: (_) {
+
         setState(() {
           isHovering = true;
         });
       },
 
       onExit: (_) {
+
         setState(() {
           isHovering = false;
         });
@@ -49,15 +57,22 @@ class _SocialButtonState extends State<SocialButton> {
 
       child: AnimatedContainer(
 
-        duration: const Duration(milliseconds: 250),
+        duration:
+        const Duration(milliseconds: 250),
 
-        width: 320,
+        width:
+        widget.isMobile
+            ? double.infinity
+            : 320,
 
-        padding: const EdgeInsets.all(25),
+        padding: EdgeInsets.all(
+          widget.isMobile ? 20 : 25,
+        ),
 
         decoration: BoxDecoration(
 
-          borderRadius: BorderRadius.circular(25),
+          borderRadius:
+          BorderRadius.circular(25),
 
           gradient: LinearGradient(
             colors: [
@@ -69,7 +84,8 @@ class _SocialButtonState extends State<SocialButton> {
           ),
 
           border: Border.all(
-            color: widget.color.withOpacity(0.3),
+            color:
+            widget.color.withOpacity(0.3),
           ),
 
           boxShadow: [
@@ -77,7 +93,9 @@ class _SocialButtonState extends State<SocialButton> {
             if (isHovering)
 
               BoxShadow(
-                color: widget.color.withOpacity(0.35),
+                color:
+                widget.color.withOpacity(0.35),
+
                 blurRadius: 30,
                 spreadRadius: 4,
               ),
@@ -85,16 +103,21 @@ class _SocialButtonState extends State<SocialButton> {
         ),
 
         transform: Matrix4.identity()
-          ..scale(isHovering ? 1.02 : 1.0),
+          ..scale(
+            isHovering ? 1.02 : 1.0,
+          ),
 
         child: InkWell(
 
-          borderRadius: BorderRadius.circular(25),
+          borderRadius:
+          BorderRadius.circular(25),
 
           onTap: openUrl,
 
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
+
             children: [
 
               // TOP ROW
@@ -102,15 +125,17 @@ class _SocialButtonState extends State<SocialButton> {
               Row(
                 children: [
 
-                  // ICON CONTAINER
+                  // ICON
 
                   Container(
 
-                    padding: const EdgeInsets.all(16),
+                    padding:
+                    const EdgeInsets.all(16),
 
                     decoration: BoxDecoration(
 
-                      borderRadius: BorderRadius.circular(18),
+                      borderRadius:
+                      BorderRadius.circular(18),
 
                       gradient: LinearGradient(
                         colors: [
@@ -125,22 +150,40 @@ class _SocialButtonState extends State<SocialButton> {
 
                   const Spacer(),
 
-                  const Icon(
+                  Icon(
                     Icons.open_in_new,
+
+                    size:
+                    widget.isMobile
+                        ? 20
+                        : 24,
+
                     color: Colors.white,
                   ),
                 ],
               ),
 
-              const SizedBox(height: 25),
+              SizedBox(
+                height:
+                widget.isMobile
+                    ? 18
+                    : 25,
+              ),
 
               // TITLE
 
               Text(
                 widget.title,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+
+                style: TextStyle(
+
+                  fontSize:
+                  widget.isMobile
+                      ? 20
+                      : 24,
+
+                  fontWeight:
+                  FontWeight.bold,
                 ),
               ),
 
@@ -150,10 +193,18 @@ class _SocialButtonState extends State<SocialButton> {
 
               Text(
                 widget.subtitle,
+
                 style: TextStyle(
-                  fontSize: 16,
+
+                  fontSize:
+                  widget.isMobile
+                      ? 14
+                      : 16,
+
                   height: 1.6,
-                  color: Colors.grey.shade400,
+
+                  color:
+                  Colors.grey.shade400,
                 ),
               ),
             ],
