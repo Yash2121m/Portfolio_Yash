@@ -9,7 +9,7 @@ class HeroSection extends StatelessWidget {
 
   Future<void> downloadResume() async {
     final Uri url = Uri.parse(
-      'assets/resume/yash_resume.pdf',
+      'assets/assets/resume/yash_resume.pdf',
     );
 
     await launchUrl(url);
@@ -445,7 +445,7 @@ class HeroSection extends StatelessWidget {
           backgroundColor: Colors.black,
 
           backgroundImage: const AssetImage(
-            'images/profile.png',
+            'assets/images/profile.png',
           ),
         ),
       ),

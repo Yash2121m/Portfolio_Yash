@@ -27,7 +27,7 @@ class CertificatesSection extends StatelessWidget {
         "Certified in Android App Development by MyCaptain.",
 
         "path":
-        "assets/certificates/android_certificate.pdf",
+        "assets/assets/certificates/android_certificate.pdf",
 
         "icon":
         Icons.android,
@@ -44,7 +44,7 @@ class CertificatesSection extends StatelessWidget {
         "Completed Flutter & Dart Development Course.",
 
         "path":
-        "assets/certificates/flutter_certificate.pdf",
+        "assets/assets/certificates/flutter_certificate.pdf",
 
         "icon":
         Icons.flutter_dash,
@@ -61,7 +61,7 @@ class CertificatesSection extends StatelessWidget {
         "Professional recommendation and appreciation letter.",
 
         "path":
-        "assets/certificates/recommendation_letter.pdf",
+        "assets/assets/certificates/recommendation_letter.pdf",
 
         "icon":
         Icons.workspace_premium,
