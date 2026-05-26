@@ -1,64 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'theme/app_theme.dart';
+import 'sections/hero_section.dart';
+import 'sections/about_section.dart';
+import 'sections/skills_section.dart';
+import 'sections/experience_section.dart';
+import 'sections/projects_section.dart';
+import 'sections/certificates_section.dart';
+import 'sections/contact_section.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MyPortfolioApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyPortfolioApp extends StatelessWidget {
+  const MyPortfolioApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Yash Patil Portfolio',
+      theme: AppTheme.darkTheme,
+      home: const PortfolioHome(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class PortfolioHome extends StatelessWidget {
+  const PortfolioHome({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+          children: const [
+            HeroSection(),
+            AboutSection(),
+            SkillsSection(),
+            ExperienceSection(),
+            ProjectsSection(),
+            CertificatesSection(),
+            ContactSection(),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
